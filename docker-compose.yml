@@ -1,0 +1,19 @@
+version: '3'
+services:
+  server:
+    container_name: "zania-server"
+    build: 
+      dockerfile: Dockerfile
+      context: ./zania-server
+    ports:
+      - "0.0.0.0:8000:8000/tcp"
+  client: 
+    container_name: "zania-client"
+    build: 
+      dockerfile: Dockerfile
+      context: ./zania-client
+      args:
+        VITE_API_BASE_URL: http://localhost:8000/
+    ports:
+      - "0.0.0.0:80:80/tcp"
+    

@@ -8,7 +8,7 @@ from .resources import records, database
 
 async def list_records(request):
     fields.Str()
-    query = records.select()
+    query = records.select().order_by(records.c.position)
     results = await database.fetch_all(query)
     content = [
         {
