@@ -7,12 +7,15 @@ WORKDIR /zania-server
 # Copy project files
 COPY . ./server/
 
-RUN apt update
+RUN apk update && apk upgrade
 
-RUN apt install sqlite3
+# Installing sqlite
+RUN apk add --no-cache sqlite
 
+# Installing required packages for python
 RUN pip install starlette uvicorn databases sqlalchemy aiosqlite webargs-starlette
 
+# Initializing DB with default records
 RUN sh ./server/init_database.sh
 
 # Copy environment file
